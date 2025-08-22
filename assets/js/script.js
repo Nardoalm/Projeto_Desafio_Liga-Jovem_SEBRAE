@@ -48,9 +48,15 @@ function irPara(local) {
       let destino = locais[local];
       
       if (destino) {
-        let distancia = calcularDistancia(minhaLat, minhaLng, destino.lat, destino.lng);
-        diagnostic.textContent = 
-          `Destino: ${local.toUpperCase()} - Aproximadamente ${Math.round(distancia)} metros de distância.`;
+          let distancia = calcularDistancia(minhaLat, minhaLng, destino.lat, destino.lng);
+          let textoDistancia;
+          if (distancia > 1000) {
+            textoDistancia = `Aproximadamente ${(distancia/1000).toFixed(2)} km de distância.`;
+          } else {
+            textoDistancia = `Aproximadamente ${Math.round(distancia)} metros de distância.`;
+          }
+          diagnostic.textContent = 
+            `Destino: ${local.toUpperCase()} - ${textoDistancia}`;
       } else {
         diagnostic.textContent = "Local não encontrado no mapa.";
       }
